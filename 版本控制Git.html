@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>版本控制Git</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+:root { --side-bar-bg-color: #fafafa; --control-text-color: #777; }
+html { font-size: 16px; }
+body { font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; }
+#write { max-width: 860px; margin: 0px auto; padding: 30px 30px 100px; }
+#write > ul:first-child, #write > ol:first-child { margin-top: 30px; }
+a { color: rgb(65, 131, 196); }
+h1, h2, h3, h4, h5, h6 { position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; cursor: text; }
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor { text-decoration: none; }
+h1 tt, h1 code { font-size: inherit; }
+h2 tt, h2 code { font-size: inherit; }
+h3 tt, h3 code { font-size: inherit; }
+h4 tt, h4 code { font-size: inherit; }
+h5 tt, h5 code { font-size: inherit; }
+h6 tt, h6 code { font-size: inherit; }
+h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid rgb(238, 238, 238); }
+h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid rgb(238, 238, 238); }
+h3 { font-size: 1.5em; line-height: 1.43; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; color: rgb(119, 119, 119); }
+p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
+li > ol, li > ul { margin: 0px; }
+hr { height: 2px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; overflow: hidden; box-sizing: content-box; }
+li p.first { display: inline-block; }
+ul, ol { padding-left: 30px; }
+ul:first-child, ol:first-child { margin-top: 0px; }
+ul:last-child, ol:last-child { margin-bottom: 0px; }
+blockquote { border-left: 4px solid rgb(223, 226, 229); padding: 0px 15px; color: rgb(119, 119, 119); }
+blockquote blockquote { padding-right: 0px; }
+table { padding: 0px; word-break: initial; }
+table tr { border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px; }
+table tr:nth-child(2n), thead { background-color: rgb(248, 248, 248); }
+table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(223, 226, 229); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr th:first-child, table tr td:first-child { margin-top: 0px; }
+table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
+.CodeMirror-lines { padding-left: 4px; }
+.code-tooltip { box-shadow: rgba(0, 28, 36, 0.3) 0px 1px 1px 0px; border-top: 1px solid rgb(238, 242, 242); }
+.md-fences, code, tt { border: 1px solid rgb(231, 234, 237); background-color: rgb(248, 248, 248); border-radius: 3px; padding: 2px 4px 0px; font-size: 0.9em; }
+code { background-color: rgb(243, 244, 244); padding: 0px 2px; }
+.md-fences { margin-bottom: 15px; margin-top: 15px; padding-top: 8px; padding-bottom: 6px; }
+.md-task-list-item > input { margin-left: -1.3em; }
+@media print {
+  html { font-size: 13px; }
+  table, pre { break-inside: avoid; }
+  pre { overflow-wrap: break-word; }
+}
+.md-fences { background-color: rgb(248, 248, 248); }
+#write pre.md-meta-block { padding: 1rem; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border: 0px; border-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; }
+.mathjax-block > .code-tooltip { bottom: 0.375rem; }
+.md-mathjax-midline { background: rgb(250, 250, 250); }
+#write > h3.md-focus::before { left: -1.5625rem; top: 0.375rem; }
+#write > h4.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h5.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h6.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+.md-image > .md-meta { border-radius: 3px; padding: 2px 0px 0px 4px; font-size: 0.9em; color: inherit; }
+.md-tag { color: rgb(167, 167, 167); opacity: 1; }
+.md-toc { margin-top: 20px; padding-bottom: 20px; }
+.sidebar-tabs { border-bottom: none; }
+#typora-quick-open { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); }
+#typora-quick-open-item { background-color: rgb(250, 250, 250); border-color: rgb(254, 254, 254) rgb(229, 229, 229) rgb(229, 229, 229) rgb(238, 238, 238); border-style: solid; border-width: 1px; }
+.on-focus-mode blockquote { border-left-color: rgba(85, 85, 85, 0.12); }
+header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Arial, sans-serif; }
+.file-node-content:hover .file-node-icon, .file-node-content:hover .file-node-open-state { visibility: visible; }
+.mac-seamless-mode #typora-sidebar { background-color: var(--side-bar-bg-color); }
+.md-lang { color: rgb(180, 101, 77); }
+.html-for-mac .context-menu { --item-hover-bg-color: #E6F0FE; }
+#md-notification .btn { border: 0px; }
+.dropdown-menu .divider { border-color: rgb(229, 229, 229); }
+
+
+</style>
+</head>
+<body class='typora-export os-windows' >
+<div  id='write'  class = 'is-node'><h2><a name="revision-control" class="md-header-anchor"></a><span>Revision Control</span></h2><h3><a name="%E5%B8%B8%E8%A7%81%E7%9A%84%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%B7%A5%E5%85%B7" class="md-header-anchor"></a><span>常见的版本控制工具</span></h3><ol start='' ><li><p><span>CVS 1990年诞生，远古时代的主流源代码管理工具</span></p></li><li><p><span>SVN 集中式版本控制之王者</span></p><p><span>SVN:又称subversion，是CVS的接班人，是一款</span><code>集中式</code><span>源代码管理工具。曾经是绝大多数开源软件的代码管理工具，前几年在国内软件企业使用最为普遍</span></p></li><li><p><span>GIT 分布式版本控制之伟大作品</span></p><p><span>GIT:一款</span><code>分布式</code><span>源代码管理工具，目前国内企业大多都已经完成了从SVN到GIT的转换</span></p></li></ol><ul><li><p><span>集中式源代码管理</span></p><p><img src='https://upload-images.jianshu.io/upload_images/647982-0038292fc7901b3c.png' alt='img' referrerPolicy='no-referrer' /></p></li><li><p><span>分布式源代码管理</span></p><p><img src='https://upload-images.jianshu.io/upload_images/647982-b32b9194c125ecbf.png' alt='img' referrerPolicy='no-referrer' /></p></li></ul><h5><a name="%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E4%B8%AD%E5%BC%8F%E7%9A%84%E6%9C%80%E5%A4%A7%E5%8C%BA%E5%88%AB" class="md-header-anchor"></a><span>分布式和集中式的最大区别</span></h5><ul><li><span>在集中式下, 开发者只能将代码提交到服务器, 在分布式下, 开发者可以本地提交</span></li><li><span>在集中式下, 只有远程服务器上有代码数据库, 在分布式下, 每个开发者机器上都有一个代码数据库</span></li></ul><h5><a name="svn(%E9%9B%86%E4%B8%AD%E5%BC%8F)" class="md-header-anchor"></a><span>SVN(集中式)</span></h5><p><img src='https://upload-images.jianshu.io/upload_images/647982-04a8ecee2ca8e5c4.png' alt='img' referrerPolicy='no-referrer' /></p><h5><a name="git(%E5%88%86%E5%B8%83%E5%BC%8F)" class="md-header-anchor"></a><span>Git(分布式)</span></h5><p><img src='https://upload-images.jianshu.io/upload_images/647982-6a9d0974b77621bc.png' alt='img' referrerPolicy='no-referrer' /></p><h5><a name="svn%E5%92%8Cgit%E7%9A%84%E7%AE%80%E5%8D%95%E5%AF%B9%E6%AF%94" class="md-header-anchor"></a><span>SVN和Git的简单对比</span></h5><ul><li><span>在多数情况下，Git的速度远比SVN快</span></li><li><span>SVN是集中式的，Git是分布式的</span></li><li><span>SVN使用分支比较笨拙，Git可以拥有无限多个分支</span></li><li><span>SVN必须联网才能使用，Git支持本地版本控制工作</span></li><li><span>旧版本的SVN会在每个文件夹下放一个.SVN，Git只会在根目录下放一个.git文件夹</span></li></ul><hr /><h3><a name="git%E7%AE%80%E4%BB%8B" class="md-header-anchor"></a><span>Git简介</span></h3><p><span>Linux之父李纳斯的第二个伟大作品</span></p><hr /><h3><a name="git%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86" class="md-header-anchor"></a><span>Git的工作原理</span></h3><ul><li><p><strong><span>工作区（Working Directory）</span></strong></p><p><span>仓库文件夹里面, 除了</span><code>.git目录</code><span>以外的内容</span></p></li><li><p><strong><span>版本库(Repository)</span></strong></p><p><span>.git目录, 用于存储记录版本信息</span></p><ul><li><span>版本库中的</span><strong><span>暂缓区(staga):</span></strong></li><li><span>版本库中的</span><strong><span>分支(master):</span></strong><span> git自动创建的第一个分支</span></li><li><span>版本库中的</span><strong><span>HEAD指针:</span></strong><span>用于指向当前分支</span></li></ul></li><li><p><code>git add</code><span>和</span><code>git commit</code><span>命令的作用</span></p><ul><li><p><span>git add: 把文件修改添加到暂缓区</span></p><p><img src='https://upload-images.jianshu.io/upload_images/647982-143ae6cdb18d3212.png' alt='img' referrerPolicy='no-referrer' /></p></li><li><p><code>git commit</code><span>: 把暂缓区的所有内容提交到当前HEAD指针指向的分支</span></p><p><img src='https://upload-images.jianshu.io/upload_images/647982-55c339632d9e540f.png' alt='img' referrerPolicy='no-referrer' /></p></li></ul></li></ul><hr /><h3><a name="%E5%8D%95%E4%BA%BA%E5%BC%80%E5%8F%91" class="md-header-anchor"></a><span>单人开发</span></h3><h4><a name="git%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E6%93%8D%E4%BD%9C" class="md-header-anchor"></a><span>git工具安装完成后操作</span></h4><ol start='' ><li><p><span>初始化工作区</span></p><ul><li><code>git init</code><span>  之后工作区文件夹就会多一个</span><code>.git</code><span>的隐藏目录</span></li><li><span>等于在本地创建了一个版本库</span></li></ul></li><li><p><span>配置使用人的名称和联系邮箱</span></p><ul><li><code>git config user.name &quot;zp&quot;</code></li><li><code>git config user.email &quot;gritpeng@gmail.com&quot;</code></li></ul><p><span>该操作是使用git的第一步，也是让其他人知道是谁操作git,以及如何联系他</span></p><ul><li><code>git config -l</code><span>查看是否配置成功</span></li></ul></li><li><p><span>接下来，就可以使用git管理工作区中的文件</span></p></li></ol><hr /><h4><a name="%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6" class="md-header-anchor"></a><span>使用git管理文件</span></h4><ol start='' ><li><p><span>查看文件有没有被git管理</span></p><ul><li><span>git status 如果有输出文件，并且文件是红色，说明没有被git管理，当前文件处于工作区中</span></li><li><span>如果需要git管理需要将工作区中的文件添加到暂存区</span></li></ul></li><li><p><span>将工作区中的文件添加到版本库的暂存区</span></p><ul><li><code>git add 文件名</code></li><li><span>此时，git status输出的文件呈绿色，说明已经被添加到暂存区了</span></li><li><span>接下来，需要将文件添加到HEAD指向的分支当中</span></li></ul></li><li><p><span>将暂存去的所有文件添加到header指向的分支当中</span></p><ul><li><code>git commit - m &quot;写上相应的注释&quot;</code></li><li><span>再次</span><code>git status</code><span>,如果没有输出文件，说明当前文件被git管理</span></li></ul></li></ol><p>&nbsp;</p><p><span>以上就是使用git最简单的流程</span></p><hr /><h4><a name="%E4%BD%BF%E7%94%A8git%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84" class="md-header-anchor"></a><span>使用git有什么好处</span></h4><h5><a name="%E5%BD%93%E6%88%91%E4%BB%AC%E4%BF%AE%E6%94%B9%E4%BA%86%E6%9F%90%E4%B8%AA%E6%96%87%E4%BB%B6%E4%B9%8B%E5%90%8E" class="md-header-anchor"></a><span>当我们修改了某个文件之后</span></h5><ol start='' ><li><p><span>执行</span><code>git status</code><span>命令，就会输出那个文件被修改了</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570200616088.png' alt='1570200616088' referrerPolicy='no-referrer' /></p></li><li><p><span>执行</span><code>git diff index.js</code><span>也可以查看该文件那些地方被修改了</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570200690438.png' alt='1570200690438' referrerPolicy='no-referrer' /></p></li></ol><hr /><p><span>此时被修改的文件处于工作区中，需要再次添加到版本库去管理</span></p><hr /><ol start='3' ><li><p><code>git add index.js</code></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570200863281.png' alt='1570200863281' referrerPolicy='no-referrer' /></p></li><li><p><code>git commit -m &quot;添加输出的内容&quot;</code></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570200973642.png' alt='1570200973642' referrerPolicy='no-referrer' /></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570200992633.png' alt='1570200992633' referrerPolicy='no-referrer' /></p></li></ol><hr /><h5><a name="%E5%9B%9E%E5%88%B0%E4%B9%8B%E5%89%8D%E7%9A%84%E7%89%88%E6%9C%AC" class="md-header-anchor"></a><span>回到之前的版本</span></h5><ol start='' ><li><p><span>查看index文件修改的历史</span></p><ul><li><code>git log index.js</code></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570201199652.png' alt='1570201199652' referrerPolicy='no-referrer' /></p></li><li><p><span>查看整个项目被修改的历史</span></p><ul><li><code>git log</code></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570201400940.png' alt='1570201400940' referrerPolicy='no-referrer' /></p></li><li><p><span>查看修改版本历史的简化内容</span></p><ul><li><code>git reflog</code></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570201637574.png' alt='1570201637574' referrerPolicy='no-referrer' /></p></li><li><p><span>回到之前的某个版本</span></p><ul><li><code>git reset --hard HEAD^</code><span>代表回到HEAD分支的上一个版本</span></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570202040438.png' alt='1570202040438' referrerPolicy='no-referrer' /></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570202049980.png' alt='1570202049980' referrerPolicy='no-referrer' /></p></li><li><p><span>再回到有输出语句的版本</span></p><ul><li><code>git reflog</code></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570202286399.png' alt='1570202286399' referrerPolicy='no-referrer' /></p><ul><li><code>git reset --hard 6c87a9b</code></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570202412781.png' alt='1570202412781' referrerPolicy='no-referrer' /></p></li><li><p><span>如果有那些文件不需要管理，那么可以在工作区文件夹中创建一个</span><code>.gitignore</code><span>文件</span></p><ul><li><span>执行命令</span><code>touch .gitignore</code><span>就会在工作区中新建一个</span><code>.gitignore</code><span>文件</span></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570203353378.png' alt='1570203353378' referrerPolicy='no-referrer' /></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570203364812.png' alt='1570203364812' referrerPolicy='no-referrer' /></p><ul><li><span>然后在</span><code>.gitignore</code><span>文件中，添加那些文件需要被忽略</span></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570203456324.png' alt='1570203456324' referrerPolicy='no-referrer' /></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570203472598.png' alt='1570203472598' referrerPolicy='no-referrer' /></p><ul><li><span>此时，以</span><code>css</code><span>结尾的两个文件就不被git管理了</span></li><li><span>至于怎么编写</span><code>.gitignore</code><span>文件，直接查资料</span></li></ul></li></ol><hr /><h4><a name="%E5%8D%95%E4%BA%BA%E5%BC%80%E5%8F%91-%E4%BD%BF%E7%94%A8git%E6%80%BB%E7%BB%93" class="md-header-anchor"></a><span>单人开发 使用git总结</span></h4><h5><a name="%E5%8D%95%E4%BA%BA%E6%B5%81%E7%A8%8B" class="md-header-anchor"></a><span>单人流程</span></h5><h6><a name="%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%EF%BC%88%E5%8F%AA%E5%81%9A%E4%B8%80%E6%AC%A1%EF%BC%89" class="md-header-anchor"></a><span>准备工作（只做一次）</span></h6><ol start='' ><li><span>创建一个工作区</span></li><li><span>在工作区中打开</span><code>git</code><span>终端</span><code>Git Bash Here</code></li><li><span>通过</span><code>git init</code><span>指令，初始化版本库</span></li><li><span>通过</span><code>git config user.name &quot;姓名&quot;</code><span>和</span><code>git config user.emaiil &quot;邮箱地址&quot;</code><span>来设置用户名和邮箱（不设置要挨骂）</span></li><li><span>通过</span><code>git config -l</code><span>查看设置情况</span></li></ol><h6><a name="%E5%BC%80%E5%8F%91%E9%98%B6%E6%AE%B5%EF%BC%88%E5%8F%8D%E5%A4%8D%E6%89%A7%E8%A1%8C%EF%BC%89" class="md-header-anchor"></a><span>开发阶段（反复执行）</span></h6><ol start='' ><li><p><span>编写代码</span></p></li><li><p><span>通过</span><code>git add 文件名称</code><span>或者</span><code>git add .</code><span>添加到版本库的暂存区当中</span></p></li><li><p><span>通过</span><code>git commit -m &quot;操作说明&quot;</code><span>将暂存区的文件添加到HEAD指针指向的分支中（默认只有一个分支，master分支，也叫做主分支）</span></p></li><li><p><span>注意点</span></p><ul><li><span>不是写一句代码就</span><code>add</code><span> </span><code>commit</code><span>一次，应该是完成一个功能后再</span><code>add</code><span> </span><code>commit</code></li><li><code>commit</code><span>时 </span><code>-m</code><span>注释一定要认真编写，与当前提交内容保持一致，否则完蛋</span></li></ul></li></ol><h6><a name="%E5%8D%95%E4%BA%BA%E4%BD%BF%E7%94%A8git%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%A5%BD%E5%A4%84" class="md-header-anchor"></a><span>单人使用git管理项目的好处</span></h6><ol start='' ><li><p><span>可以通过</span><code>git status</code><span>查看哪些文件没有被管理，以及修改了哪些文件</span></p><ul><li><span>红色（没有被管理或者被修改了）、绿色（在缓存区）</span></li></ul></li><li><p><span>可以通过</span><code>git diff 文件名称</code><span>来查看具体修改了哪些代码</span></p></li><li><p><span>可以通过</span><code>git log</code><span> 或者</span><code>git reflog</code><span>来查看项目的演变历史</span></p></li><li><p><span>可以通过</span><code>git reset --hard 版本号</code><span>在任意版本之间切换</span></p></li><li><p><span>无需备份多个文件，每次</span><code>commit</code><span>提交Git会自动备份</span></p></li></ol><hr /><h3><a name="%E5%A4%9A%E4%BA%BA%E5%BC%80%E5%8F%91" class="md-header-anchor"></a><span>多人开发</span></h3><h4><a name="%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%85%B1%E4%BA%AB%E7%89%88%E6%9C%AC%E5%BA%93" class="md-header-anchor"></a><span>在远程服务器上创建一个共享版本库</span></h4><hr /><p><span>此操作不需要开发人员来操作</span></p><ol start='' ><li><p><span>项目负责人打开远程服务器，然后创建一个工作区</span></p></li><li><p><span>在远程的服务器上打开工作区，在工作区中打开git终端工具（指令工具）</span></p></li><li><p><span>在git终端工具中输入 </span><code>git init --bare</code></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570248871081.png' alt='1570248871081' referrerPolicy='no-referrer' /></p></li><li><p><span>经过以上步骤，在代表远程服务器的共享版本库已经创建好了</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570248687215.png' alt='1570248687215' referrerPolicy='no-referrer' /></p></li></ol><hr /><h4><a name="%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%B8%8B%E8%BD%BD%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93" class="md-header-anchor"></a><span>开发人员下载远程版本库</span></h4><ol start='' ><li><p><span>开发人员在自己的电脑上打开Git终端工具</span></p></li><li><p><span>从远程的服务器上下载当前项目的共享版本库</span></p><ul><li><code>git clone 远程服务器共享版本库地址</code></li></ul><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570249067308.png' alt='1570249067308' referrerPolicy='no-referrer' /></p><ul><li><p><span>和单人开发使用Git的区别：</span></p><blockquote><p><span>单人开发是自己创建版本库，而多人开发是从远程服务器下载版本库</span></p></blockquote></li></ul></li></ol><hr /><h4><a name="%E8%BF%9B%E5%85%A5%E5%BC%80%E5%8F%91%E9%98%B6%E6%AE%B5" class="md-header-anchor"></a><span>进入开发阶段</span></h4><p><span>和单人开发一样</span></p><hr /><ol start='' ><li><p><span>设置用户名和邮箱(</span><strong><span>切记</span></strong><span>)</span></p></li><li><p><span>编写代码</span></p></li><li><p><code>git add .</code><span>添加到暂缓区</span></p></li><li><p><code>git commit -m &quot;备注&quot;</code><span>添加到HEAD指针指向的分支</span></p></li><li><p><span>注意点</span></p><blockquote><p><code>commit</code><span>是将编写好的代码提交到本地的版本库，所以其他开发人员是拿不到我们提交的代码的</span></p><p><span>如果想让其他开发人员也能拿到我们提交的代码，还必须将我们编写好的代码提交到远程服务器</span></p></blockquote><p><span>多人开发特有：</span></p></li><li><p><span>将代码提交到远程的服务器 </span><code>git push</code></p></li><li><p><span>其他开发人员只需要通过</span><code>git pull</code><span>就可以拿到更新的代码了</span></p></li></ol><hr /><h4><a name="%E5%A4%9A%E4%BA%BA%E5%BC%80%E5%8F%91%E4%BD%BF%E7%94%A8git%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9" class="md-header-anchor"></a><span>多人开发使用Git的注意点</span></h4><ol start='' ><li><p><span>不能将不能运行的代码提交到本地和远程服务器（切记）</span></p></li><li><p><span>如果服务器上有其他开发人员的更新内容（这里假设更新的不是同一个文件），那么我们不能直接通过</span><code>push</code><span>将我们的代码提交到远程服务器</span></p><blockquote><p><span>如果服务器上有其他开发人员更新的内容，我们必须先将其他开发人员更新的内容更新到本地之后才能通过</span><code>push</code><span>提交我们的内容</span></p></blockquote></li><li><p><span>如果我们更新的内容和其他同事更新的内容有冲突（修改了同一个文件的同一行代码），这个时候需要我们自己手动修改冲突，修改完冲突之后才能将代码提交到远程服务器</span></p><blockquote><p><span>开发技巧：</span></p><p><span>只要开发完一个功能就要立即提交代码，因为在企业开发中谁后提交谁就负责解决冲突，谁的工作量就大</span></p></blockquote></li></ol><hr /><h3><a name="git%E5%88%86%E6%94%AF%E7%9A%84%E4%BD%BF%E7%94%A8" class="md-header-anchor"></a><span>Git分支的使用</span></h3><h4><a name="%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%88%86%E6%94%AF" class="md-header-anchor"></a><span>如何查看有多少个分支</span></h4><ol start='' ><li><p><span>通过</span><code>git branch</code><span>指令就可以查看当前版本库中有多少分支</span></p><blockquote><p><span>注意点：</span></p><ol start='' ><li><span>如果当前版本库是空的，那么就无法查看</span></li><li><span>如果通过git branch指令查看当前版本库中有多少个分支，输出的内容中哪一个分支前面有*号，就代表当前HEAD指针指向哪一个分支，我们提交的代码就会提交到HEAD指针指向的分支中</span></li></ol></blockquote></li></ol><hr /><h4><a name="%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%88%86%E6%94%AF" class="md-header-anchor"></a><span>如何创建一个分支</span></h4><ol start='' ><li><p><span>通过</span><code>git branch 分支名称</code><span>来创建一个新的分支</span></p><blockquote><p><span>注意点：</span></p><p><span>在那个分支中创建了新的分支，那么创建出来的分支就会继承当前分支的所有状态</span></p><p><span>例如：</span></p><p><span>在master分支中做了两个操作，然后在master分支下创建了Dev分支，那么创建出来的分支就会继承master分支中的这两个操作</span></p><p><strong><span>注意</span></strong><span>:一旦分支被创建出来之后，分支就是独立的，分支之间不会相互影响，如果需要同步两个分支就必须合并</span></p></blockquote></li></ol><hr /><h4><a name="%E5%A6%82%E4%BD%95%E5%B0%86%E5%88%86%E6%94%AF%E6%8F%90%E4%BA%A4%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8" class="md-header-anchor"></a><span>如何将分支提交到远程服务器</span></h4><ol start='' ><li><p><span>通过</span><code>git branch -r</code><span>来查看远程服务器上有多少个分支</span></p></li><li><p><span>首先需要在本地切换到新建的分支当中，然后通过</span><code>git push</code><span>指令提交新建的分支到远程的服务器</span></p><ul><li><code>git push --set-upstream origin Dev</code><span>  </span></li></ul></li></ol><hr /><h4><a name="%E5%A6%82%E4%BD%95%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF" class="md-header-anchor"></a><span>如何合并分支</span></h4><p><span>可以通过</span><code>git merge 分支名称</code><span>来合并分支</span></p><blockquote><p><span>例如：</span></p><p><span>在master分支中执行 </span><code>git merge Dev</code><span>就代表需要将Dev分支中的所有代码合并到master分支中</span></p><p><span>在Dev分支中执行</span><code>git merge master</code><span>就代表需要将master分支中的所有代码合并到Dev分支中</span></p></blockquote><hr /><h4><a name="%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF" class="md-header-anchor"></a><span>如何删除分支</span></h4><ol start='' ><li><span>可以通过</span><code>git branch -d 分支名称</code><span>来删除本地的分支</span></li><li><span>可以通过</span><code>git push origin --delete 分支名称</code><span>来删除远程服务器的分支，一般用的比较少</span></li></ol><hr /><h3><a name="git%E5%B7%A5%E5%85%B7%E7%9A%84%E5%8D%87%E7%BA%A7" class="md-header-anchor"></a><span>Git工具的升级</span></h3><p><code>git update-git-for-windows</code></p><hr /><h3><a name="github%E7%9A%84%E4%BD%BF%E7%94%A8" class="md-header-anchor"></a><span>GitHub的使用</span></h3><p><span>怎么在GitHub上创建工作区？怎么在GitHub上创建共享版本库？</span></p><ol start='' ><li><span>在GitHub上创建仓库</span></li></ol><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570284774812.png' alt='1570284774812' referrerPolicy='no-referrer' /></p><ol start='2' ><li><p><span>创建好工作区之后，copy仓库的地址</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570284854048.png' alt='1570284854048' referrerPolicy='no-referrer' /></p></li><li><p><span>在本地创建一个工作区文件夹，然后把GitHub上的工作区clone下来</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570284960185.png' alt='1570284960185' referrerPolicy='no-referrer' /></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570284978809.png' alt='1570284978809' referrerPolicy='no-referrer' /></p></li><li><p><span>然后在本地工作区中，打开git终端，告诉他我是谁，我的联系方式</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570285124012.png' alt='1570285124012' referrerPolicy='no-referrer' /></p></li><li><p><span>此时，我们使用http的方式，git push代码的话，会弹出让我们登录GitHub账号，每次提交都要登录的话，就很麻烦，所以一般企业开发中会使用SSH的方式来操作</span></p></li></ol><h4><a name="%E6%80%8E%E4%B9%88%E9%85%8D%E7%BD%AEssh" class="md-header-anchor"></a><span>怎么配置SSH</span></h4><ol start='' ><li><p><span>首先在随便一个文件夹下打开git终端</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570286254893.png' alt='1570286254893' referrerPolicy='no-referrer' /></p></li><li><p><span>就会在电脑，生成公钥和私钥</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570286319789.png' alt='1570286319789' referrerPolicy='no-referrer' /></p></li><li><p><span>将公钥复制并设置到GitHub上</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570286662615.png' alt='1570286662615' referrerPolicy='no-referrer' /></p></li><li><p><span>然后再git终端执行</span></p><p><code>ssh -T git@github.com</code></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570286863068.png' alt='1570286863068' referrerPolicy='no-referrer' /></p><p><span>输出hi github的用户名，意味着配置成功！</span></p></li><li><p><span>然后再返回GitHub上，使用SSH方式</span><code>clone</code><span>代码</span></p></li><li><p><code>clone</code><span>完成之后，进入工作区，打开git终端</span></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570287264280.png' alt='1570287264280' referrerPolicy='no-referrer' /></p><p><img src='C:\Users\Peng\AppData\Roaming\Typora\typora-user-images\1570287970245.png' alt='1570287970245' referrerPolicy='no-referrer' /></p></li><li><p><span>然后就可以将修改的代码，</span><code>git push</code><span>到GitHub上了</span></p></li></ol><h3><a name="gitflow%E4%BD%BF%E7%94%A8" class="md-header-anchor"></a><span>Gitflow使用</span></h3><p><span>待更</span></p></div>
+</body>
+</html>
